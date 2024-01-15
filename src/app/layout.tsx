@@ -17,7 +17,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body
         className={cn(
           inter.className,
-          "w-screen h-screen overflow-hidden sm:p-4 p-2"
+          "w-screen h-screen overflow-hidden sm:p-4 p-2 flex items-center justify-center"
         )}
       >
         <ThemeProvider
