@@ -26,7 +26,7 @@ export default function ImageEditor() {
   const [filename, setFilename] = useState("");
 
   useEffect(() => {
-    if (uploadedImage) showImage();
+    if (uploadedImage && !imagePreview) showImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedImage]);
 
