@@ -11,7 +11,7 @@ export default function Home() {
         <h3 className="mb-6">Edit your images blazingly fast ✨</h3>
         <Link
           href={routes.auth.LOGIN}
-          className="px-4 py-2 bg-brand-foreground rounded-md self-center"
+          className="px-4 py-2 bg-brand-foreground text-primary-foreground rounded-md self-center"
         >
           Get started
         </Link>

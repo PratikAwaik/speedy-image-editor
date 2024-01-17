@@ -56,8 +56,8 @@ export default function LoginForm() {
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
           />
-          <div className="flex items-center gap-1 text-xs text-slate-200">
-            <Info width={16} height={16} />
+          <div className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-300">
+            <Info width={14} height={14} />
             Try Tester@123
           </div>
         </div>
