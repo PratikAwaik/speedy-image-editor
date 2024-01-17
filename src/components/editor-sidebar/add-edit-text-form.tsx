@@ -34,12 +34,14 @@ export default function AddEditTextForm() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (selectedText?.id) updateText(selectedText.id, textData);
-    else addText(textData);
-    setTextData({
-      text: "",
-      fontSize: "14",
-      color: "",
-    });
+    else {
+      addText(textData);
+      setTextData({
+        text: "",
+        fontSize: "14",
+        color: "",
+      });
+    }
   };
 
   return (
