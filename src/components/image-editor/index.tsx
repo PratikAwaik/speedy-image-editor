@@ -91,9 +91,9 @@ export default function ImageEditor() {
               className="w-full h-full"
               ref={imageContainerRef}
               style={{
-                borderWidth: `${border?.width}px`,
-                borderStyle: border?.style,
-                borderColor: border?.color,
+                border: border
+                  ? `${border.width}px ${border.style} ${border.color}`
+                  : "none",
               }}
             >
               <img
