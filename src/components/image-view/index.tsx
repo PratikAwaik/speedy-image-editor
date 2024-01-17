@@ -25,7 +25,7 @@ export default function ImageView() {
   const [filename, setFilename] = useState("");
 
   useEffect(() => {
-    if (uploadedImage && !imagePreview) showImage();
+    if (uploadedImage) showImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedImage]);
 
