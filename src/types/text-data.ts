@@ -1,6 +1,5 @@
 export interface ITextData {
-  // index
-  id: number;
+  id: string;
   text: string;
   fontSize: string;
   color: string;

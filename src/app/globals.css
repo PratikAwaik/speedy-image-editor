@@ -8,7 +8,8 @@
     /* --foreground: 222.2 84% 4.9%; */
     --foreground: 240 3% 12%;
 
-    --brand-foreground: 253.33 100% 70%;
+    --brand-foreground: 13.24 99.07% 57.84%;
+    --sidebar-background: 240 5.88% 96.67%;
 
     --card: 0 0% 100%;
     /* --card-foreground: 222.2 84% 4.9%; */
@@ -45,6 +46,8 @@
     /* --background: 222.2 84% 4.9%; */
     --background: 240 3% 12%;
     --foreground: 60 100% 98.04%;
+
+    --sidebar-background: 240 4.35% 9.02%;
 
     /* --card: 222.2 84% 4.9%; */
     --card: 240 3% 12%;

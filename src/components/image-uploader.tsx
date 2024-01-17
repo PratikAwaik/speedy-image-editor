@@ -3,7 +3,7 @@
 import {ChangeEvent} from "react";
 import {Input} from "./ui/input";
 import {Label} from "./ui/label";
-import {useImageStore} from "@/stores/image-store";
+import {useImageStore} from "@/stores/image";
 
 export default function ImageUploader() {
   const setUploadedImage = useImageStore((s) => s.setUploadedImage);
@@ -14,7 +14,7 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-fit">
       <Label htmlFor="image-uploader">Upload Image</Label>
       <Input
         type="file"

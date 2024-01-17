@@ -1,11 +1,14 @@
+import EditorSidebar from "@/components/editor-sidebar";
 import ImageEditor from "@/components/image-editor";
-import ImageUploader from "@/components/image-uploader";
 
 export default function EditorPage() {
   return (
-    <div className="max-w-[800px] flex items-center justify-center">
-      <div className="flex flex-col gap-8">
-        <ImageUploader />
+    <div className="w-full h-full">
+      <h1 className="text-center text-4xl font-semibold mb-4 text-brand-foreground mt-6">
+        🚀 Speedy Image Editor
+      </h1>
+      <div className="flex items-center justify-between max-w-[1200px] h-full mx-auto">
+        <EditorSidebar />
         <ImageEditor />
       </div>
     </div>

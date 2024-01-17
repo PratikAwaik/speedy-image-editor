@@ -3,6 +3,7 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import {cn} from "@/lib/utils";
 import {ThemeProvider} from "@/components/theme-provider";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -17,7 +18,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body
         className={cn(
           inter.className,
-          "w-screen h-screen overflow-hidden sm:p-4 p-2 flex items-center justify-center"
+          "w-screen h-screen overflow-hidden sm:p-4 p-2"
         )}
       >
         <ThemeProvider
@@ -26,7 +27,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar />
+          <div className="w-full h-full flex items-center justify-center">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

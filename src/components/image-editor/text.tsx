@@ -1,24 +1,21 @@
 "use client";
 
 import {cn} from "@/lib/utils";
-import {Edit, Trash} from "lucide-react";
+import {Trash} from "lucide-react";
 import {DragEvent, useState} from "react";
-import {useImageStore} from "@/stores/image-store";
 import {ITextData} from "@/types/text-data";
+import {useTextStore} from "@/stores/text";
 
 interface TextProps {
-  index: number;
   textData: ITextData;
-  handleOnDrop: (e: DragEvent<HTMLDivElement>) => void;
 }
 
-export default function Text({index, textData}: TextProps) {
+export default function Text({textData}: TextProps) {
   const [editable, setEditable] = useState(false);
   const [showEditOptions, setShowEditOptions] = useState(false);
-  const setOpenDialog = useImageStore((s) => s.setOpenAddEditDialog);
-  const setSelectedText = useImageStore((s) => s.setSelectedText);
-  const updateText = useImageStore((s) => s.updateText);
-  const removeText = useImageStore((s) => s.removeText);
+  const setSelectedText = useTextStore((s) => s.setSelectedText);
+  const updateText = useTextStore((s) => s.updateText);
+  const removeText = useTextStore((s) => s.removeText);
 
   const [editableText, setEditableText] = useState(textData.text);
 
@@ -41,11 +38,11 @@ export default function Text({index, textData}: TextProps) {
   //   };
 
   const handleOnDragStart = (e: DragEvent<HTMLDivElement>) => {
-    updateText(textData?.id, {
+    updateText(textData.id, {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
     });
-    e.dataTransfer.setData(`textData`, index.toString());
+    e.dataTransfer.setData(`textData`, textData.id);
   };
 
   return (
@@ -65,7 +62,7 @@ export default function Text({index, textData}: TextProps) {
       onBlur={() => {
         setShowEditOptions(false);
         setEditable(false);
-        updateText(index, {text: editableText});
+        updateText(textData.id, {text: editableText});
         setSelectedText(null);
       }}
     >
@@ -76,6 +73,7 @@ export default function Text({index, textData}: TextProps) {
             e.stopPropagation();
             setEditable(true);
             setShowEditOptions(true);
+            setSelectedText(textData.id);
           }
         }}
       >
@@ -104,23 +102,13 @@ export default function Text({index, textData}: TextProps) {
         )}
         {showEditOptions && (
           <div className="flex items-center absolute -top-6 right-0 gap-1">
-            <Edit
-              width={18}
-              height={18}
-              className="text-background cursor-pointer"
-              onClick={() => {
-                setOpenDialog(true);
-                setSelectedText(index);
-              }}
-            />
             <Trash
               width={18}
               height={18}
               className="text-background cursor-pointer"
               onClick={() => {
-                // setTextData({...textData, toAddText: false});
-                removeText(index);
-                // setSelectedText(null);
+                removeText(textData.id);
+                setSelectedText(null);
               }}
             />
           </div>
