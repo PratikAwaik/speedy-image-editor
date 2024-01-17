@@ -27,7 +27,9 @@ function FilterInput({filter}: {filter: IFilter}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [filter.id, filters.length]
   );
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(
+    filterExists?.id ? filterExists.value : ""
+  );
   const addFilter = useFiltersStore((s) => s.addFilter);
   const updateFilter = useFiltersStore((s) => s.updateFilter);
   const removeFilter = useFiltersStore((s) => s.removeFilter);
@@ -52,7 +54,7 @@ function FilterInput({filter}: {filter: IFilter}) {
         <Input
           type="number"
           id={filter.type}
-          value={value}
+          value={value as string}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           required
