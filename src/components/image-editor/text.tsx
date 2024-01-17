@@ -26,7 +26,7 @@ export default function Text({textData}: TextProps) {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
     });
-    e.dataTransfer.setData(`textData`, textData.id);
+    e.dataTransfer.setData("textId", textData.id);
   };
 
   const handleOnBlur = (e: FocusEvent<HTMLDivElement>) => {

@@ -26,23 +26,21 @@ export default function ImageEditor() {
   const [filename, setFilename] = useState("");
 
   useEffect(() => {
-    showImage();
+    if (uploadedImage) showImage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedImage]);
 
   const showImage = () => {
-    if (uploadedImage) {
-      const reader = new FileReader();
-      reader.readAsDataURL(uploadedImage);
-      reader.onloadend = () => {
-        if (reader.result) setImagePreview(reader.result);
-      };
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(uploadedImage as File);
+    reader.onloadend = () => {
+      if (reader.result) setImagePreview(reader.result);
+    };
   };
 
   const handleOnDrop = (e: DragEvent<HTMLDivElement>) => {
     const text = texts.find(
-      (t) => t.id === (e.dataTransfer.getData("textData") as string)
+      (t) => t.id === (e.dataTransfer.getData("textId") as string)
     );
     if (text?.offsetX && text?.offsetY) {
       const textDataToUpdate = {
@@ -91,6 +89,7 @@ export default function ImageEditor() {
                   ? `${border.width}px ${border.style} ${border.color}`
                   : "none",
               }}
+              // tabIndex for onBlur to set e.relatedTarget
               tabIndex={0}
             >
               <img
@@ -104,6 +103,7 @@ export default function ImageEditor() {
                     .map((f) => `${f.type}(${f.value}${f.unit ? f.unit : ""})`)
                     .join(" "),
                 }}
+                // tabIndex for onBlur to set e.relatedTarget
                 tabIndex={0}
               />
               {texts.map((text) => (
