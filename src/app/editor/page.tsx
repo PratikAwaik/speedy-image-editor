@@ -9,7 +9,7 @@ export default function EditorPage() {
         🚀 Speedy Image Editor
       </h1>
       <ImageUploader />
-      <div className="flex items-center max-w-[1200px] h-fit mx-auto gap-6">
+      <div className="flex items-start max-w-[1200px] h-full mx-auto gap-6">
         <EditorSidebar />
         <ImageEditor />
       </div>

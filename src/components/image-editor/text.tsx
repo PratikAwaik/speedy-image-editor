@@ -47,7 +47,7 @@ export default function Text({textData}: TextProps) {
       className={cn(
         "absolute z-10 rounded-md",
         editable ? "cursor-default" : "cursor-move",
-        editable ? "border border-dashed border-foreground" : "border-none"
+        editable ? "border border-dashed border-border" : "border-none"
       )}
       draggable
       onDragStart={handleOnDragStart}

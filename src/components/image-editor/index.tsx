@@ -74,7 +74,7 @@ export default function ImageEditor() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-around gap-6">
+    <div className="w-full h-full flex flex-col items-center justify-start gap-6">
       {imagePreview && (
         <div className="flex flex-col items-center justify-center gap-8">
           <div

@@ -7,6 +7,7 @@ import {Button} from "../ui/button";
 import Spinner from "../ui/spinner";
 import {useRouter} from "next/navigation";
 import {routes} from "@/lib/constants";
+import {Info} from "lucide-react";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -55,6 +56,10 @@ export default function LoginForm() {
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
           />
+          <div className="flex items-center gap-1 text-xs text-slate-200">
+            <Info width={16} height={16} />
+            Try Tester@123
+          </div>
         </div>
         <Button variant="default" disabled={isLoading}>
           {isLoading && <Spinner className="mr-2 h-4 w-4 animate-spin" />}
