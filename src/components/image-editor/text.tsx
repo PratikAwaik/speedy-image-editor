@@ -60,8 +60,8 @@ export default function Text({textData}: TextProps) {
       <div
         className="relative p-1 w-fit"
         onClick={(e) => {
+          e.stopPropagation();
           if (!editable) {
-            e.stopPropagation();
             setEditable(true);
             setSelectedText(textData.id);
           }
