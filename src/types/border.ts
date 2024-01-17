@@ -5,7 +5,6 @@ export interface IBorder {
 }
 
 export enum BorderStyle {
-  // dotted", "dashed", "solid", "double", "groove", "ridge
   DOTTED = "dotted",
   DASHED = "dashed",
   SOLID = "solid",

@@ -1,5 +1,5 @@
-import {ITextData} from "@/types/text";
-import {FormEvent, KeyboardEvent, useEffect, useState} from "react";
+import {IText} from "@/types/text";
+import {FormEvent, useEffect, useState} from "react";
 import {Label} from "../ui/label";
 import {Input} from "../ui/input";
 import {HexColorPicker} from "react-colorful";
@@ -8,7 +8,7 @@ import {useTextStore} from "@/stores/text";
 import {Trash} from "lucide-react";
 
 export default function AddEditTextForm() {
-  const [textData, setTextData] = useState<Partial<ITextData>>({
+  const [textData, setTextData] = useState<Partial<IText>>({
     text: "",
     fontSize: "14",
     color: "",

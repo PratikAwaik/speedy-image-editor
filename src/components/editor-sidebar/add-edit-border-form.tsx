@@ -9,13 +9,8 @@ import {useBorderStore} from "@/stores/border";
 import {Combobox} from "../ui/combobox";
 
 const borderStyleOptions = [
-  // dotted", "dashed", "solid", "double", "groove", "ridge
-
   {label: "Dotted", value: BorderStyle.DOTTED},
-  {
-    label: "Dashed",
-    value: BorderStyle.DASHED,
-  },
+  {label: "Dashed", value: BorderStyle.DASHED},
   {label: "Solid", value: BorderStyle.SOLID},
   {label: "Double", value: BorderStyle.DOUBLE},
   {label: "Groove", value: BorderStyle.GROOVE},

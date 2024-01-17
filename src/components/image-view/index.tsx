@@ -4,7 +4,6 @@
 import {DragEvent, useEffect, useRef, useState} from "react";
 import Text from "./text";
 import {useImageStore} from "@/stores/image";
-import ImageUploader from "../image-uploader";
 import {Button} from "../ui/button";
 import {Download} from "lucide-react";
 import {toPng} from "html-to-image";
@@ -13,7 +12,7 @@ import {useFiltersStore} from "@/stores/filters";
 import {useBorderStore} from "@/stores/border";
 import {Input} from "../ui/input";
 
-export default function ImageEditor() {
+export default function ImageView() {
   const uploadedImage = useImageStore((s) => s.uploadedImage);
   const [imagePreview, setImagePreview] = useState<
     string | ArrayBuffer | null
@@ -71,49 +70,47 @@ export default function ImageEditor() {
     }
   };
 
+  if (!imagePreview) return null;
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-start gap-6">
-      {imagePreview && (
-        <div className="flex flex-col items-center justify-center gap-8">
+      <div className="flex flex-col items-center justify-center gap-8">
+        <div
+          className="w-[600px] max-h-[600px] relative border"
+          onDrop={(e) => handleOnDrop(e)}
+          onDragOver={(e) => handleOnDragOver(e)}
+          id="image-editor-container"
+        >
           <div
-            className="w-[600px] max-h-[600px] relative border"
-            onDrop={(e) => handleOnDrop(e)}
-            onDragOver={(e) => handleOnDragOver(e)}
-            id="image-editor-container"
+            className="w-full h-full"
+            ref={imageContainerRef}
+            style={{
+              border: border
+                ? `${border.width}px ${border.style} ${border.color}`
+                : "none",
+            }}
+            // tabIndex for onBlur to set e.relatedTarget
+            tabIndex={0}
           >
-            <div
-              className="w-full h-full"
-              ref={imageContainerRef}
+            <img
+              src={imagePreview as string}
+              alt="Uploaded Image Preview"
+              className="w-full h-full object-contain"
+              loading="lazy"
               style={{
-                border: border
-                  ? `${border.width}px ${border.style} ${border.color}`
-                  : "none",
+                filter: filters
+                  .filter((f) => f.value !== null || f.value !== undefined)
+                  .map((f) => `${f.type}(${f.value}${f.unit ? f.unit : ""})`)
+                  .join(" "),
               }}
               // tabIndex for onBlur to set e.relatedTarget
               tabIndex={0}
-            >
-              <img
-                src={imagePreview as string}
-                alt="Uploaded Image Preview"
-                className="w-full h-full object-contain"
-                loading="lazy"
-                style={{
-                  filter: filters
-                    .filter((f) => f.value !== null || f.value !== undefined)
-                    .map((f) => `${f.type}(${f.value}${f.unit ? f.unit : ""})`)
-                    .join(" "),
-                }}
-                // tabIndex for onBlur to set e.relatedTarget
-                tabIndex={0}
-              />
-              {texts.map((text) => (
-                <Text key={text.id} textData={text} />
-              ))}
-            </div>
+            />
+            {texts.map((text) => (
+              <Text key={text.id} textData={text} />
+            ))}
           </div>
         </div>
-      )}
-      {uploadedImage && (
         <div className="flex items-center justify-around gap-6 w-full">
           <Input
             type="text"
@@ -126,7 +123,7 @@ export default function ImageEditor() {
             Download
           </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 }

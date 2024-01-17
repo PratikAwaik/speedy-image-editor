@@ -1,5 +1,5 @@
 import EditorSidebar from "@/components/editor-sidebar";
-import ImageEditor from "@/components/image-editor";
+import ImageView from "@/components/image-view";
 import ImageUploader from "@/components/image-uploader";
 
 export default function EditorPage() {
@@ -11,7 +11,7 @@ export default function EditorPage() {
       <ImageUploader />
       <div className="flex items-start max-w-[1200px] h-full mx-auto gap-6">
         <EditorSidebar />
-        <ImageEditor />
+        <ImageView />
       </div>
     </div>
   );

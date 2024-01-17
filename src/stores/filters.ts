@@ -6,7 +6,6 @@ interface FiltersStoreProps {
   addFilter: (filter: IFilter) => void;
   removeFilter: (id: string) => void;
   updateFilter: (id: string, filter: Partial<IFilter>) => void;
-  removeAllFilters: () => void;
 }
 
 export const useFiltersStore = create<FiltersStoreProps>((set) => ({
@@ -19,5 +18,4 @@ export const useFiltersStore = create<FiltersStoreProps>((set) => ({
     set((state) => ({
       filters: state.filters.map((f) => (f.id === id ? {...f, ...filter} : f)),
     })),
-  removeAllFilters: () => set({filters: []}),
 }));
