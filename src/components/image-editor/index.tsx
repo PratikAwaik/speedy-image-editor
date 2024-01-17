@@ -11,6 +11,7 @@ import {toPng} from "html-to-image";
 import {useTextStore} from "@/stores/text";
 import {useFiltersStore} from "@/stores/filters";
 import {useBorderStore} from "@/stores/border";
+import {Input} from "../ui/input";
 
 export default function ImageEditor() {
   const uploadedImage = useImageStore((s) => s.uploadedImage);
@@ -22,6 +23,7 @@ export default function ImageEditor() {
   const filters = useFiltersStore((s) => s.filters);
   const border = useBorderStore((s) => s.border);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
+  const [filename, setFilename] = useState("");
 
   useEffect(() => {
     showImage();
@@ -60,7 +62,9 @@ export default function ImageEditor() {
     if (imageContainerRef.current) {
       toPng(imageContainerRef.current).then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = uploadedImage?.name + "-edited.png";
+        link.download = filename
+          ? filename + ".png"
+          : uploadedImage?.name + "-edited.png";
         link.href = dataUrl;
         document.body.appendChild(link);
         link.click();
@@ -70,16 +74,7 @@ export default function ImageEditor() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-6">
-      <div className="w-full flex items-end justify-around gap-6">
-        <ImageUploader />
-        {uploadedImage && (
-          <Button className="gap-2" onClick={downloadImage}>
-            <Download width={20} height={20} />
-            Download
-          </Button>
-        )}
-      </div>
+    <div className="w-full h-full flex flex-col items-center justify-around gap-6">
       {imagePreview && (
         <div className="flex flex-col items-center justify-center gap-8">
           <div
@@ -116,6 +111,20 @@ export default function ImageEditor() {
               ))}
             </div>
           </div>
+        </div>
+      )}
+      {uploadedImage && (
+        <div className="flex items-center justify-around gap-6 w-full">
+          <Input
+            type="text"
+            placeholder="File name"
+            value={filename}
+            onChange={(e) => setFilename(e.target.value)}
+          />
+          <Button className="gap-2" onClick={downloadImage}>
+            <Download width={20} height={20} />
+            Download
+          </Button>
         </div>
       )}
     </div>

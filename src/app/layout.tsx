@@ -28,7 +28,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="w-full h-full flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-start">
             {children}
           </div>
         </ThemeProvider>

@@ -44,7 +44,7 @@ export default function EditorSidebar() {
 
   return (
     <div className="w-fit h-full flex items-center gap-2">
-      <div className="w-fit h-fit p-4 rounded-lg flex flex-col items-center justify-center gap-4 bg-sidebar-background">
+      <div className="w-fit h-fit p-4 rounded-lg flex flex-col items-center justify-center gap-4 bg-secondary">
         {sidebarOptions.map((option: ISidebarOption) => (
           <SidebarButton
             key={option.text}
@@ -54,7 +54,7 @@ export default function EditorSidebar() {
           />
         ))}
       </div>
-      <div className="w-80 max-h-[600px] bg-sidebar-background rounded-lg p-6 flex items-center">
+      <div className="w-80 max-h-[600px] bg-secondary rounded-lg p-6 flex items-center">
         {selectedOption.component}
       </div>
     </div>
