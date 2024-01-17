@@ -2,7 +2,7 @@
 
 import {cn} from "@/lib/utils";
 import {Trash} from "lucide-react";
-import {DragEvent, useState} from "react";
+import {DragEvent, useEffect, useRef, useState} from "react";
 import {ITextData} from "@/types/text-data";
 import {useTextStore} from "@/stores/text";
 
@@ -16,26 +16,13 @@ export default function Text({textData}: TextProps) {
   const setSelectedText = useTextStore((s) => s.setSelectedText);
   const updateText = useTextStore((s) => s.updateText);
   const removeText = useTextStore((s) => s.removeText);
+  const paraRef = useRef<HTMLParagraphElement | null>(null);
 
-  const [editableText, setEditableText] = useState(textData.text);
-
-  //   const textRef = useRef<HTMLDivElement | null>(null);
-
-  //   useEffect(() => {
-  //     document.addEventListener("click", handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener("click", handleClickOutside);
-  //     };
-  //   }, []);
-
-  //   const handleClickOutside = (e: any) => {
-  //     console.log(textRef.current?.contains(e.target));
-  //     console.log(e.target);
-  //     if (!textRef.current?.contains(e.target)) {
-  //       setShowEditOptions(false);
-  //       setEditable(false);
-  //     }
-  //   };
+  useEffect(() => {
+    if (paraRef.current && editable) {
+      paraRef.current.focus();
+    }
+  }, [editable]);
 
   const handleOnDragStart = (e: DragEvent<HTMLDivElement>) => {
     updateText(textData.id, {
@@ -62,7 +49,7 @@ export default function Text({textData}: TextProps) {
       onBlur={() => {
         setShowEditOptions(false);
         setEditable(false);
-        updateText(textData.id, {text: editableText});
+        updateText(textData.id, {text: paraRef.current?.innerText});
         setSelectedText(null);
       }}
     >
@@ -77,29 +64,17 @@ export default function Text({textData}: TextProps) {
           }
         }}
       >
-        {editable ? (
-          <input
-            type="text"
-            value={editableText}
-            onChange={(e) => {
-              setEditableText(e.target.value);
-            }}
-            className="bg-transparent max-w-fit border-none outline-none p-0 m-0"
-            style={{
-              fontSize: textData?.fontSize + "px",
-              color: textData?.color,
-            }}
-          />
-        ) : (
-          <p
-            style={{
-              color: textData?.color,
-              fontSize: textData?.fontSize + "px",
-            }}
-          >
-            {textData?.text}
-          </p>
-        )}
+        <p
+          style={{
+            color: textData?.color,
+            fontSize: textData?.fontSize + "px",
+          }}
+          contentEditable={editable}
+          ref={paraRef}
+          className="px-2 py-1"
+        >
+          {textData.text}
+        </p>
         {showEditOptions && (
           <div className="flex items-center absolute -top-6 right-0 gap-1">
             <Trash

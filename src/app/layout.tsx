@@ -8,7 +8,7 @@ import Navbar from "@/components/navbar";
 const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: "🚀 Speedy Image Editor",
+  title: "Speedy Image Editor",
   description: "Edit images blazingly fast",
 };
 

@@ -1,4 +1,4 @@
-import {IBorder} from "@/types/border";
+import {BorderStyle, IBorder} from "@/types/border";
 import {FormEvent, useEffect, useState} from "react";
 import {Label} from "../ui/label";
 import {Input} from "../ui/input";
@@ -6,10 +6,26 @@ import {HexColorPicker} from "react-colorful";
 import {Button} from "../ui/button";
 import {Trash} from "lucide-react";
 import {useBorderStore} from "@/stores/border";
+import {Combobox} from "../ui/combobox";
+
+const borderStyleOptions = [
+  // dotted", "dashed", "solid", "double", "groove", "ridge
+
+  {label: "Dotted", value: BorderStyle.DOTTED},
+  {
+    label: "Dashed",
+    value: BorderStyle.DASHED,
+  },
+  {label: "Solid", value: BorderStyle.SOLID},
+  {label: "Double", value: BorderStyle.DOUBLE},
+  {label: "Groove", value: BorderStyle.GROOVE},
+  {label: "Ridge", value: BorderStyle.RIDGE},
+];
 
 export default function AddEditBorderForm() {
   const [border, setBorder] = useState<IBorder>({
     width: "",
+    style: BorderStyle.SOLID,
     color: "",
   });
   const storeBorder = useBorderStore((s) => s.border);
@@ -21,6 +37,7 @@ export default function AddEditBorderForm() {
     } else
       setBorder({
         width: "",
+        style: BorderStyle.SOLID,
         color: "",
       });
   }, [storeBorder]);
@@ -49,6 +66,30 @@ export default function AddEditBorderForm() {
         </div>
       </div>
       <div className="flex flex-col gap-2">
+        <Label htmlFor="border-style">Border style</Label>
+        <Combobox
+          options={borderStyleOptions}
+          value={border.style}
+          setValue={(val) =>
+            setBorder((prev) => ({...prev, style: val as BorderStyle}))
+          }
+        />
+        {/* <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="w-full">
+              <span>Select</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {["dotted", "dashed", "solid", "double", "groove", "ridge"].map(
+              (style) => (
+                <DropdownMenuItem key={style}>{style}</DropdownMenuItem>
+              )
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu> */}
+      </div>
+      <div className="flex flex-col gap-2">
         <Label htmlFor="border-color">Border color</Label>
         <HexColorPicker
           color={border.color}
@@ -61,7 +102,7 @@ export default function AddEditBorderForm() {
           Add border
         </Button>
         {storeBorder && (
-          <Button onClick={() => setStoreBorder(null)}>
+          <Button type="button" onClick={() => setStoreBorder(null)}>
             <Trash width={20} height={20} />
           </Button>
         )}

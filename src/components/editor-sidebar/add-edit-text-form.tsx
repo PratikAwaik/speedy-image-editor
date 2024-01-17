@@ -29,6 +29,7 @@ export default function AddEditTextForm() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(selectedText);
     if (selectedText) updateText(selectedText.id, textData);
     else addText(textData);
     setTextData({

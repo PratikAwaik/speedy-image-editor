@@ -7,6 +7,7 @@ import SidebarButton from "./sidebar-button";
 import AddEditTextForm from "./add-edit-text-form";
 import AddEditFiltersForm from "./add-edit-filters-form";
 import AddEditBorderForm from "./add-edit-border-form";
+import {useImageStore} from "@/stores/image";
 
 const sidebarOptions = [
   {
@@ -33,10 +34,13 @@ export default function EditorSidebar() {
   const [selectedOption, setSelectedOption] = useState<ISidebarOption>(
     sidebarOptions[0]
   );
+  const uploadedImage = useImageStore((s) => s.uploadedImage);
 
   const handleOnClick = (option: ISidebarOption) => {
     setSelectedOption(option);
   };
+
+  if (!uploadedImage) return null;
 
   return (
     <div className="w-fit h-full flex items-center gap-2">
