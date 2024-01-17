@@ -1,5 +1,5 @@
-import {ITextData} from "@/types/text-data";
-import {FormEvent, useEffect, useState} from "react";
+import {ITextData} from "@/types/text";
+import {FormEvent, KeyboardEvent, useEffect, useState} from "react";
 import {Label} from "../ui/label";
 import {Input} from "../ui/input";
 import {HexColorPicker} from "react-colorful";
@@ -36,11 +36,6 @@ export default function AddEditTextForm() {
     if (selectedText?.id) updateText(selectedText.id, textData);
     else {
       addText(textData);
-      setTextData({
-        text: "",
-        fontSize: "14",
-        color: "",
-      });
     }
   };
 
@@ -76,7 +71,7 @@ export default function AddEditTextForm() {
         />
       </div>
       <div className="flex items-center gap-4">
-        <Button type="button" onClick={handleSubmit} className="w-full">
+        <Button type="submit" onClick={handleSubmit} className="w-full">
           {selectedText?.id ? "Update" : "Add"} Text
         </Button>
         {selectedText && (

@@ -1,4 +1,4 @@
-import {ITextData} from "@/types/text-data";
+import {ITextData} from "@/types/text";
 import {create} from "zustand";
 import {v4 as uuidv4} from "uuid";
 

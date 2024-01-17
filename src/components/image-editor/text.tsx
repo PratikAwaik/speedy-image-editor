@@ -2,7 +2,7 @@
 
 import {cn} from "@/lib/utils";
 import {DragEvent, FocusEvent, useEffect, useRef, useState} from "react";
-import {ITextData} from "@/types/text-data";
+import {ITextData} from "@/types/text";
 import {useTextStore} from "@/stores/text";
 
 interface TextProps {
