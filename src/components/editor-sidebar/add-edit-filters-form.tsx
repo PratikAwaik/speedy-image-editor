@@ -4,10 +4,15 @@ import {KeyboardEvent, useMemo, useState} from "react";
 import {Label} from "../ui/label";
 import {Input} from "../ui/input";
 import {useFiltersStore} from "@/stores/filters";
+import {Info} from "lucide-react";
 
 export default function AddEditFiltersForm() {
   return (
     <form className="flex flex-col gap-4 w-full max-h-[600px] py-6 overflow-auto">
+      <p className="text-sm inline-flex items-start gap-2">
+        <Info width={20} height={20} />
+        Press enter after adding values for the effect to take place.
+      </p>
       {filters.map((filter) => (
         <FilterInput key={filter.id} filter={filter} />
       ))}
@@ -41,7 +46,7 @@ function FilterInput({filter}: {filter: IFilter}) {
   };
 
   return (
-    <div key={filter.type} className="flex flex-col gap-2">
+    <div key={filter.type} className="flex flex-col gap-2 mx-2">
       <Label htmlFor={filter.type}>{filter.name}</Label>
       <div className="relative">
         <Input

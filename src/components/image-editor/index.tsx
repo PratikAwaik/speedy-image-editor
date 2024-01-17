@@ -86,6 +86,7 @@ export default function ImageEditor() {
             className="w-[600px] max-h-[600px] relative border"
             onDrop={(e) => handleOnDrop(e)}
             onDragOver={(e) => handleOnDragOver(e)}
+            id="image-editor-container"
           >
             <div
               className="w-full h-full"
@@ -95,6 +96,7 @@ export default function ImageEditor() {
                   ? `${border.width}px ${border.style} ${border.color}`
                   : "none",
               }}
+              tabIndex={0}
             >
               <img
                 src={imagePreview as string}
@@ -107,6 +109,7 @@ export default function ImageEditor() {
                     .map((f) => `${f.type}(${f.value}${f.unit ? f.unit : ""})`)
                     .join(" "),
                 }}
+                tabIndex={0}
               />
               {texts.map((text) => (
                 <Text key={text.id} textData={text} />

@@ -5,6 +5,7 @@ import {Input} from "../ui/input";
 import {HexColorPicker} from "react-colorful";
 import {Button} from "../ui/button";
 import {useTextStore} from "@/stores/text";
+import {Trash} from "lucide-react";
 
 export default function AddEditTextForm() {
   const [textData, setTextData] = useState<Partial<ITextData>>({
@@ -13,11 +14,13 @@ export default function AddEditTextForm() {
     color: "",
   });
   const selectedText = useTextStore((s) => s.selectedText);
+  const setSelectedText = useTextStore((s) => s.setSelectedText);
   const addText = useTextStore((s) => s.addText);
   const updateText = useTextStore((s) => s.updateText);
+  const removeText = useTextStore((s) => s.removeText);
 
   useEffect(() => {
-    if (selectedText) {
+    if (selectedText?.id) {
       setTextData(selectedText);
     } else
       setTextData({
@@ -25,12 +28,12 @@ export default function AddEditTextForm() {
         fontSize: "14",
         color: "",
       });
-  }, [selectedText]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedText?.id]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(selectedText);
-    if (selectedText) updateText(selectedText.id, textData);
+    if (selectedText?.id) updateText(selectedText.id, textData);
     else addText(textData);
     setTextData({
       text: "",
@@ -70,9 +73,22 @@ export default function AddEditTextForm() {
           className="!w-full"
         />
       </div>
-      <Button type="button" onClick={handleSubmit} className="w-full">
-        {selectedText ? "Update" : "Add"} Text
-      </Button>
+      <div className="flex items-center gap-4">
+        <Button type="button" onClick={handleSubmit} className="w-full">
+          {selectedText?.id ? "Update" : "Add"} Text
+        </Button>
+        {selectedText && (
+          <Button
+            type="button"
+            onClick={() => {
+              removeText(selectedText.id);
+              setSelectedText(null);
+            }}
+          >
+            <Trash width={20} height={20} />
+          </Button>
+        )}
+      </div>
     </form>
   );
 }
